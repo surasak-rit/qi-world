@@ -189,22 +189,20 @@ function spawnFragment(x, z, idx) {
 }
 WORLD.fragmentSites.forEach((f, i) => { if (state.fragments <= i) spawnFragment(f.pos[0], f.pos[1], i); });
 
-// NPC (จาก data)
+// NPC (จาก data) — โมเดลมนุษย์ (ใช้ avatar เดียวกับตัวละคร) + วงเรืองแสงบอกว่าโต้ตอบได้
 const npcs = [];
 for (const def of WORLD.npcs) {
-  const mesh = new THREE.Mesh(
-    new THREE.CapsuleGeometry(0.5, 1.0, 6, 12),
-    new THREE.MeshStandardMaterial({ color: def.color })
-  );
+  const av = createAvatar({ color: def.color, weapon: def.id === 'wanderer' });
+  const mesh = av.group;
   mesh.position.set(def.pos[0], PLAYER_H, def.pos[1]);
-  mesh.castShadow = true;
+  mesh.rotation.y = Math.atan2(-def.pos[0], -def.pos[1]); // หันเข้าหาศูนย์กลางลาน
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(1.1, 0.06, 8, 24),
-    new THREE.MeshStandardMaterial({ color: def.color, emissive: def.color, emissiveIntensity: 0.3 })
+    new THREE.MeshStandardMaterial({ color: def.color, emissive: def.color, emissiveIntensity: 0.4 })
   );
   ring.rotation.x = Math.PI / 2; ring.position.y = -0.9; mesh.add(ring);
   scene.add(mesh);
-  npcs.push({ def, mesh, ring, lineIdx: 0 });
+  npcs.push({ def, mesh, avatar: av, ring, lineIdx: 0 });
 }
 
 // ประตูสำนัก (จาก data)
@@ -624,7 +622,14 @@ function update(dt) {
     const d = pos.distanceTo(playerMesh.position);
     if (d < range && (!nearTarget || d < nearTarget.dist)) nearTarget = { kind, ref, dist: d };
   };
-  for (const npc of npcs) { npc.ring.rotation.z += dt; consider('npc', npc, npc.mesh.position, 3); }
+  for (const npc of npcs) {
+    npc.ring.rotation.z += dt;
+    npc.avatar.update(dt, { moving: false, grounded: true });
+    // หันหน้าเข้าหาผู้เล่นเมื่ออยู่ใกล้
+    if (npc.mesh.position.distanceTo(playerMesh.position) < 6)
+      npc.mesh.rotation.y = Math.atan2(playerMesh.position.x - npc.mesh.position.x, playerMesh.position.z - npc.mesh.position.z);
+    consider('npc', npc, npc.mesh.position, 3);
+  }
   for (const gate of sectGates) consider('sect', gate, gate.pos, 4.5);
   for (const spot of medSpots) {
     if (spot.cd > 0) spot.cd -= dt;
