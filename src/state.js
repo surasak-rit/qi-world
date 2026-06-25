@@ -19,6 +19,17 @@ export function defaultState() {
     fragments: 0,          // ชิ้นส่วนคัมภีร์ที่เก็บได้
     quests: {},            // ความคืบหน้าเควสปลดเคล็ดวิชา { manualId: stepIndex }
     unlockedManuals: [],   // คัมภีร์ที่เรียนได้แล้ว
+
+    // ---- คลัง/อุปกรณ์ (Phase 2) ----
+    inventory: {           // ของในคลัง { itemId: จำนวน }
+      potion_hp: 3, potion_qi: 2, sword_iron: 1, robe_cloth: 1, boots_swift: 1,
+    },
+    equipped: {            // อุปกรณ์ที่สวมอยู่ (8 ช่อง)
+      weapon: null, helmet: null, shirt: null, cloak: null,
+      necklace: null, ring: null, bracer: null, shoes: null,
+    },
+    hotbar: ['potion_hp', 'potion_qi', null, null], // ไอเทมผูกคีย์ 1-4
+    autoCounter: true,     // ตีกลับอัตโนมัติเมื่อโดนโจมตี
   };
 }
 

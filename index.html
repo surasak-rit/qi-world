@@ -20,6 +20,22 @@
         <div class="stat-chip" id="chip-sect">ไร้สังกัด</div>
         <div class="stat-chip" id="chip-rep">ชื่อเสียง <b>0</b></div>
         <div class="stat-chip" id="chip-morality">ธรรม</div>
+        <div class="stat-chip" id="chip-auto" title="สลับตีกลับอัตโนมัติ (T)">ตีกลับอัตโนมัติ: เปิด</div>
+      </div>
+
+      <!-- ป้ายชื่อตัวละครลอยเหนือหัว (ฉายจาก 3D) -->
+      <div id="labels"></div>
+
+      <!-- กรอบเป้าหมาย: ชื่อ + หลอดเลือดมอนสเตอร์ที่กำลังสู้ -->
+      <div id="target-frame" class="hidden">
+        <div id="target-name">—</div>
+        <div class="bar-track"><div id="target-hp"></div></div>
+      </div>
+
+      <!-- มินิแมพ + ชื่อย่านพื้นที่ (มุมขวาบน) -->
+      <div id="hud-map">
+        <div class="stat-chip" id="chip-region">ลานชุมนุมยุทธภพ</div>
+        <canvas id="minimap" width="160" height="160"></canvas>
       </div>
 
       <!-- แถบเลือด/ปราณผู้เล่น -->
@@ -32,10 +48,14 @@
       <div id="interact-prompt" class="hidden"></div>
       <div id="toast-wrap"></div>
 
+      <!-- hotbar ไอเทม (คีย์ 1-4) -->
+      <div id="hotbar"></div>
+
       <!-- แถบปุ่มเปิดแผง -->
       <div id="hud-menu">
         <button data-panel="character">ตัวละคร (C)</button>
         <button data-panel="cultivation">ฝึกวิชา (V)</button>
+        <button data-panel="inventory">คลัง (I)</button>
         <button data-panel="sect">สำนัก (B)</button>
         <button data-panel="manual">เคล็ดวิชา (N)</button>
         <button data-panel="help">วิธีเล่น (H)</button>

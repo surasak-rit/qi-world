@@ -1,5 +1,6 @@
-// คำนวณสถานะตัวละครจาก "วิชาที่เรียน" ล้วน — ไม่มีเลเวล ไม่มีค่าฐานจากการเก็บ XP
+// คำนวณสถานะตัวละครจาก "วิชาที่เรียน" เป็นหลัก + โบนัสจากอุปกรณ์สวมใส่ (Phase 2)
 import { SKILLS } from '../data/skills.js';
+import { equipmentBonuses } from './equipment.js';
 
 // ค่าฐานน้อยมาก แค่ให้ขยับได้ตอนยังไม่มีวิชาอะไรเลย
 const BASE = { hp: 50, qi: 0, atk: 4, speed: 4.5, jump: 4.5, dash: 7, parry: 0, lifesteal: 0 };
@@ -14,6 +15,10 @@ export function computeStats(state) {
       for (const k of Object.keys(g)) s[k] = (s[k] || 0) + g[k];
     }
   }
+
+  // โบนัสจากอุปกรณ์ + set bonus (เสริมจากวิชา ไม่ใช่เลเวล)
+  const eq = equipmentBonuses(state);
+  for (const k of Object.keys(eq)) s[k] = (s[k] || 0) + eq[k];
 
   // พลังภายใน (เน่ยกง) เป็นตัวคูณให้ทุกอย่าง — สไตล์จอมยุทธ์กึ่งสมจริง
   const neigong = s.qi;

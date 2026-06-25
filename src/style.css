@@ -24,6 +24,14 @@ body { background: #0b0a10; color: var(--ink); }
 }
 .stat-chip b { color: var(--gold); }
 
+/* มินิแมพ + ย่านพื้นที่ (ขวาบน) */
+#hud-map { position: fixed; top: 12px; right: 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+#hud-map #chip-region { font-weight: 600; }
+#minimap {
+  width: 160px; height: 160px; border-radius: 50%;
+  border: 1px solid rgba(233,196,106,.4); background: rgba(10,12,16,.6); backdrop-filter: blur(4px);
+}
+
 /* แถบเลือด/ปราณ */
 #hud-bars { position: fixed; bottom: 16px; left: 16px; width: 260px; display: flex; flex-direction: column; gap: 6px; }
 .bar { display: flex; align-items: center; gap: 8px; font-size: 12px; }
@@ -50,6 +58,41 @@ body { background: #0b0a10; color: var(--ink); }
 .toast.bad { border-color: var(--blood); }
 @keyframes pop { from { transform: translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes fade { to { opacity: 0; transform: translateY(-8px); } }
+
+#chip-auto { cursor: pointer; }
+
+/* ป้ายชื่อตัวละครลอยเหนือหัว */
+#labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.name-label {
+  position: absolute; transform: translate(-50%, -100%);
+  font-size: 12px; white-space: nowrap; padding: 1px 7px; border-radius: 8px;
+  background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.18); color: var(--ink);
+}
+.name-label.enemy { color: #ffb0b8; border-color: rgba(255,91,110,.5); }
+.name-label.npc   { color: #9be9b0; border-color: rgba(111,202,160,.5); }
+.name-label.self  { color: var(--gold); border-color: rgba(233,196,106,.5); }
+
+/* กรอบเป้าหมาย (หลอดเลือดมอนสเตอร์) */
+#target-frame {
+  position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+  width: 240px; background: var(--chip-bg); border: 1px solid rgba(255,91,110,.55);
+  border-radius: 10px; padding: 7px 12px; backdrop-filter: blur(4px);
+}
+#target-name { font-size: 13px; margin-bottom: 5px; color: #ffb0b8; }
+#target-frame .bar-track { height: 12px; }
+#target-hp { height: 100%; width: 100%; background: linear-gradient(90deg, #ff6b6b, #ff3355); transition: width .15s; border-radius: 8px; }
+
+/* hotbar ไอเทม */
+#hotbar { position: fixed; bottom: 74px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+.hot-slot {
+  width: 52px; height: 52px; border-radius: 10px; background: var(--chip-bg);
+  border: 1px solid rgba(233,196,106,.4); position: relative; display: flex;
+  align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(4px);
+}
+.hot-slot .key { position: absolute; top: 2px; left: 5px; font-size: 10px; opacity: .7; }
+.hot-slot .dot { width: 22px; height: 22px; border-radius: 50%; }
+.hot-slot .qty { position: absolute; bottom: 2px; right: 5px; font-size: 11px; color: var(--gold); }
+.hot-slot.empty .dot { background: rgba(255,255,255,.08); }
 
 /* เมนูปุ่ม */
 #hud-menu { position: fixed; bottom: 16px; right: 16px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 60vw; }
@@ -95,6 +138,14 @@ body { background: #0b0a10; color: var(--ink); }
 .stat-box { background: rgba(255,255,255,.04); border-radius: 8px; padding: 10px 12px; }
 .stat-box .v { font-size: 22px; color: var(--gold); }
 .stat-box .l { font-size: 12px; opacity: .75; }
+
+/* คลัง/อุปกรณ์ */
+.equip-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.equip-slot { border: 1px solid rgba(255,255,255,.18); border-radius: 9px; padding: 8px 10px; background: rgba(255,255,255,.03); }
+.equip-slot .slot-name { font-size: 11px; opacity: .6; }
+.equip-slot .slot-item { font-size: 14px; margin: 2px 0; }
+.equip-slot .slot-bonus { font-size: 11px; opacity: .8; color: var(--jade); margin-bottom: 6px; }
+.btn.mini { padding: 3px 8px; font-size: 11px; margin-right: 4px; }
 
 .quest-step { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; font-size: 13px; }
 .quest-step .mark { color: var(--jade); }
