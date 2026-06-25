@@ -1,0 +1,17 @@
+{
+  "name": "qi-world",
+  "version": "0.1.0",
+  "description": "เกม 3D แนวจอมยุทธ์ท่องยุทธภพ — แสวงหาเคล็ดวิชาลับเพื่อฝึกฝน (ไม่มีเลเวล เก่งจากการเรียนวิทยายุทธ)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  }
+}

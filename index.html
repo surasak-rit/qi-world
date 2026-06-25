@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qi World — ท่องยุทธภพ</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <!-- import map: ทำให้รันได้บน static server โดยไม่ต้องมี bundler (vite จะ bundle จาก node_modules แทนเองตอน build) -->
+    <script type="importmap">
+      { "imports": { "three": "https://esm.sh/three@0.169.0" } }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <!-- HUD บนสุด -->
+      <div id="hud-top">
+        <div class="stat-chip" id="chip-insight">ปัญญายุทธ์ <b>0</b></div>
+        <div class="stat-chip" id="chip-sect">ไร้สังกัด</div>
+        <div class="stat-chip" id="chip-rep">ชื่อเสียง <b>0</b></div>
+        <div class="stat-chip" id="chip-morality">ธรรม</div>
+      </div>
+
+      <!-- แถบเลือด/ปราณผู้เล่น -->
+      <div id="hud-bars">
+        <div class="bar"><span>เลือด</span><div class="bar-track"><div id="hp-fill"></div></div></div>
+        <div class="bar"><span>ปราณ</span><div class="bar-track qi"><div id="qi-fill"></div></div></div>
+      </div>
+
+      <!-- ข้อความโต้ตอบ / prompt -->
+      <div id="interact-prompt" class="hidden"></div>
+      <div id="toast-wrap"></div>
+
+      <!-- แถบปุ่มเปิดแผง -->
+      <div id="hud-menu">
+        <button data-panel="character">ตัวละคร (C)</button>
+        <button data-panel="cultivation">ฝึกวิชา (V)</button>
+        <button data-panel="sect">สำนัก (B)</button>
+        <button data-panel="manual">เคล็ดวิชา (N)</button>
+        <button data-panel="help">วิธีเล่น (H)</button>
+      </div>
+
+      <!-- แผงต่าง ๆ -->
+      <div id="panel" class="hidden">
+        <div id="panel-head">
+          <h2 id="panel-title"></h2>
+          <button id="panel-close">✕</button>
+        </div>
+        <div id="panel-body"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
