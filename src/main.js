@@ -163,8 +163,8 @@ let camYaw = 0;
 
 // ---------------- เอนทิตีในโลก (สร้างจาก WORLD) ----------------
 const enemies = [];
-function spawnEnemy(x, z, power, name) {
-  const av = createAvatar({ villain: true, weaponColor: 0x8a2a22 });
+function spawnEnemy(x, z, power, name, variant) {
+  const av = createAvatar({ variant, weaponColor: 0x8a2a22 });
   const mesh = av.group;
   mesh.position.set(x, PLAYER_H, z);
   scene.add(mesh);
@@ -174,7 +174,7 @@ function spawnEnemy(x, z, power, name) {
   enemies.push(e);
   return e;
 }
-WORLD.enemies.forEach((e) => spawnEnemy(e.pos[0], e.pos[1], e.power, e.name));
+WORLD.enemies.forEach((e) => spawnEnemy(e.pos[0], e.pos[1], e.power, e.name, e.variant));
 
 // ชิ้นส่วนคัมภีร์
 const fragments = [];
@@ -192,7 +192,7 @@ WORLD.fragmentSites.forEach((f, i) => { if (state.fragments <= i) spawnFragment(
 // NPC (จาก data) — โมเดลมนุษย์ (ใช้ avatar เดียวกับตัวละคร) + วงเรืองแสงบอกว่าโต้ตอบได้
 const npcs = [];
 for (const def of WORLD.npcs) {
-  const av = createAvatar({ color: def.color, weapon: def.id === 'wanderer' });
+  const av = createAvatar({ variant: def.variant, color: def.color });
   const mesh = av.group;
   mesh.position.set(def.pos[0], PLAYER_H, def.pos[1]);
   mesh.rotation.y = Math.atan2(-def.pos[0], -def.pos[1]); // หันเข้าหาศูนย์กลางลาน

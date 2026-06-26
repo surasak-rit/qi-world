@@ -37,20 +37,21 @@ export const WORLD = {
 
   // ---------- NPC พูดคุย ----------
   // role: 'decode' = พระชราถอดอักขระเควสคัมภีร์ (กลไกเดิม) | 'lore' = ให้เบาะแส/เรื่องราว
+  // variant: รูปทรง NPC (avatar.js) — elder ชายแก่ · swordsman นักดาบชาย · townsman ชาวบ้าน · heroine หญิงสาว
   npcs: [
-    { id: 'old_monk', name: 'พระชรา', pos: [-6, -4], color: 0x2ecc71, role: 'decode',
+    { id: 'old_monk', name: 'พระชรา', pos: [-6, -4], color: 0x6a8f5a, variant: 'elder', role: 'decode',
       lines: ['พระชรา: "ยุทธภพกว้างใหญ่ จงสงบจิตแล้วแสวงหาเคล็ดวิชาด้วยใจมั่น"'] },
-    { id: 'wanderer', name: 'จอมยุทธ์เร้นกาย', pos: [46, 30], color: 0x6fb1ff, role: 'lore',
+    { id: 'wanderer', name: 'จอมยุทธ์เร้นกาย', pos: [46, 30], color: 0x3a5a7a, variant: 'swordsman', role: 'lore',
       lines: [
         '"ว่ากันว่าคัมภีร์เก้าหยางขาดเป็นสามท่อน กระจัดกระจายทั่วยุทธภพ"',
         '"ลองหาในป่าตะวันออก บนเขาเหนือ และริมทะเลสาบวารีดูสิ"',
       ] },
-    { id: 'merchant', name: 'พ่อค้าเร่', pos: [14, 4], color: 0xe9c46a, role: 'lore',
+    { id: 'merchant', name: 'พ่อค้าเร่', pos: [14, 4], color: 0x8a6a3a, variant: 'townsman', role: 'lore',
       lines: [
         '"ลานสมาธิช่วยสงบจิต ยืนทำสมาธิที่นั่นได้ปัญญายุทธ์เพิ่มนะ (กด E)"',
         '"แต่ละสำนักมีประตูของตน เดินไปกด E ที่ประตูก็เข้าสังกัดได้เลย"',
       ] },
-    { id: 'hermit', name: 'ฤๅษีริมวารี', pos: [-50, 38], color: 0x9b8cff, role: 'lore',
+    { id: 'hermit', name: 'นางพรายวารี', pos: [-50, 38], color: 0x9b6cc0, variant: 'heroine', role: 'lore',
       lines: [
         '"สำนักวารีรำพึงเน้นวิชาตัวเบา เร็วดั่งสายลม"',
         '"ระวังหุบเหวเลือดทางทิศใต้ พวกลัทธิมารโหดเหี้ยมนัก"',
@@ -68,31 +69,32 @@ export const WORLD = {
 
   // ---------- ศัตรู ----------
   // กระจายตามย่าน: ใกล้ลานกลางอ่อน ไกลออกไปแกร่งขึ้น
+  // variant กำหนดรูปร่าง (ดู systems/avatar.js): grunt ลูกสมุน · brute ยักษ์กำยำ · assassin นักฆ่าเพรียว · demon มารมีเขา
   enemies: [
     // รอบลานชุมนุม (อ่อน — ฝึกมือ)
-    { pos: [18, -4],   power: 7,  name: 'โจรป่า' },
-    { pos: [-16, -2],  power: 8,  name: 'โจรป่า' },
-    { pos: [24, 12],   power: 9,  name: 'อันธพาลเร่ร่อน' },
+    { pos: [18, -4],   power: 7,  name: 'โจรป่า',          variant: 'grunt' },
+    { pos: [-16, -2],  power: 8,  name: 'โจรป่า',          variant: 'grunt' },
+    { pos: [24, 12],   power: 9,  name: 'อันธพาลเร่ร่อน',   variant: 'grunt' },
 
     // ป่าตะวันออก
-    { pos: [40, 28],   power: 11, name: 'นักดาบพเนจร' },
-    { pos: [62, 30],   power: 12, name: 'มือกระบี่ป่า' },
-    { pos: [70, 50],   power: 13, name: 'เสือสมิงเฒ่า' },
-    { pos: [50, 55],   power: 11, name: 'นักดาบพเนจร' },
+    { pos: [40, 28],   power: 11, name: 'นักดาบพเนจร',     variant: 'grunt' },
+    { pos: [62, 30],   power: 12, name: 'มือกระบี่ป่า',     variant: 'assassin' },
+    { pos: [70, 50],   power: 13, name: 'เสือสมิงเฒ่า',     variant: 'brute' },
+    { pos: [50, 55],   power: 11, name: 'นักดาบพเนจร',     variant: 'grunt' },
 
     // เขาเหนือ
-    { pos: [-30, -40], power: 14, name: 'จอมโจรเขาเหนือ' },
-    { pos: [-48, -50], power: 16, name: 'นักรบเขาเหนือ' },
-    { pos: [-38, -68], power: 18, name: 'ขุนพลโจร' },
+    { pos: [-30, -40], power: 14, name: 'จอมโจรเขาเหนือ',  variant: 'brute' },
+    { pos: [-48, -50], power: 16, name: 'นักรบเขาเหนือ',    variant: 'brute' },
+    { pos: [-38, -68], power: 18, name: 'ขุนพลโจร',         variant: 'brute' },
 
     // ทะเลสาบวารี
-    { pos: [-46, 36],  power: 12, name: 'นักฆ่าเงาวารี' },
-    { pos: [-66, 50],  power: 15, name: 'มือเข็มพิษ' },
+    { pos: [-46, 36],  power: 12, name: 'นักฆ่าเงาวารี',    variant: 'assassin' },
+    { pos: [-66, 50],  power: 15, name: 'มือเข็มพิษ',        variant: 'assassin' },
 
     // หุบเหวเลือด (แกร่งสุด — สายมาร)
-    { pos: [44, -48],  power: 18, name: 'มารอาวุโส' },
-    { pos: [56, -62],  power: 22, name: 'ทูตเลือด' },
-    { pos: [38, -66],  power: 24, name: 'สาวกเลือดบูชา' },
-    { pos: [60, -50],  power: 28, name: 'มารหัตถ์โลหิต' },
+    { pos: [44, -48],  power: 18, name: 'มารอาวุโส',        variant: 'demon' },
+    { pos: [56, -62],  power: 22, name: 'ทูตเลือด',          variant: 'demon' },
+    { pos: [38, -66],  power: 24, name: 'สาวกเลือดบูชา',     variant: 'demon' },
+    { pos: [60, -50],  power: 28, name: 'มารหัตถ์โลหิต',     variant: 'demon' },
   ],
 };
